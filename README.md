@@ -10,5 +10,27 @@ Encapsulation is important not only to make it clear which object is responsible
 
 
 -------------------- Abstraction --------------------
+
+
+
+
+
+
+
+
+
+
+
 -------------------- Inheritance --------------------
+
+
+
+
+
+
+
+
+
+
+
 -------------------- Polymorohism --------------------
