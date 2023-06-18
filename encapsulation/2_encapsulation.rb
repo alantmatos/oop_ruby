@@ -1,6 +1,6 @@
 =begin
 
-Abstration _ part 3
+Encapsulation part 2
 
 Now, lets make some changes in our code, so that it will not 
 allow changes to be made outside the allowed scope.
@@ -54,7 +54,7 @@ print_invoice(books)
 
 =begin 
 
-This code has abstracted the data necessary to create a book, if we try to modify data anywhere in our code
-we wont be allowed to do so.
+This code has Encapsulated the data necessary to create a book, if we try 
+to modify data anywhere in our code we wont be allowed to do so.
 
 =end

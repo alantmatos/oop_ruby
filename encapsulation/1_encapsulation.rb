@@ -1,8 +1,8 @@
 =begin
 
-Abstration_part 1
+Encapsulation part 1
 
-In the following sample, with no abstration, out books data is 
+In the following sample, with no Encapsulation, out books data is 
 exposed, and can easly be manituplated by different methods, such as the
 method that supposed to print, can now change the price.
 
@@ -42,7 +42,7 @@ print_invoice(books)
 
 =begin
 
-Abstration_part 1
+Encapsulation part 1
 
 As we can see, this code allows to create books, and update its information in
 methods that were not supposed to, this happens because the book's data
