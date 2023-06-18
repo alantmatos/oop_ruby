@@ -91,5 +91,3 @@ end
 
 
 calls_methods(books)
-
-
