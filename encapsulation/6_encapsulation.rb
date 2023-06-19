@@ -13,16 +13,16 @@ from stock as we sell.
 
 
 module Counter
-    def add_book_to_stock(book)
+    def <<(book)
         push(book)
-        if( @max_inventory.nil? || @max_inventory < inventory )
-            @max_inventory = inventory
+        if @max_inventory_reached.nil? || @max_inventory_reached < size
+          @max_inventory_reached = size
         end
         self
-    end
+      end
 
-    def max_reached_inventory
-        @max_inventory
+    def max_inventory_reached
+        @max_inventory_reached
     end
 
 end
@@ -67,8 +67,10 @@ end
 
 
 class Stock
+    attr_reader :books
     def initialize
         @books = []
+        @books.extend Counter
     end
 
     # also known as methond "Tell Don't Ask", this method now
@@ -80,16 +82,25 @@ class Stock
         end
     end
 
-    def inventory
-        @books.length
+
+    def print_invoice
+        @books.each do |book|
+            puts book.title
+        end
     end
 
-    def add_book_to_stock(book)
+
+    def <<(book)
         @books << book if book
+        self
     end
 
-    def remove_book_from_stock
-        
+    def remove(book)  
+           @books.delete(book)
+    end
+
+    def max_inventory_reached
+        @books.max_inventory_reached
     end
 
     def newsletter_books_on_sale
@@ -103,16 +114,7 @@ class Stock
         end
     end
 
-    
-    def apply_discount
-        puts " ---------------DEALS---------------"
-        puts "  "
-        @books.each do |book|
-            if book.release_year < 2000            
-                book.to_csv(book)                
-            end
-        end
-    end
+
 
 
 
@@ -120,18 +122,36 @@ end
 
 
 
+
+
+# stock = Stock.new
+# stock.add_book_to_stock(Book.new("Rails - Best Practices", 40, 2020, 226, true))
+# stock.add_book_to_stock(Book.new("Ruby - mkdir dev happy", 45, 2000, 453, false))
+# stock.add_book_to_stock(Book.new("Ruby On Rails - the web runs in trails", 50, 2010, 14, false))
+# stock.add_book_to_stock(Book.new("Ruby - The newest kid in the block", 25, 1995, 8, false))
+# stock.add_book_to_stock(Book.new("TDD - Ruby", 30, 1996, 7, true))
+# stock.add_book_to_stock( Book.new("Agile & Ruby - Ruby", 15, 2001, 16, false))
+# stock.add_book_to_stock( Book.new("How BigTech is using Ruby?", 65, 2002, 47, true))
+
+
+
+ds = Book.new("Data Structures", 100, 1998, 50, true)
+sd = Book.new("Software Design", 70, 2011, 96, true)
+programmer = Book.new("The Pragmatic Programmer", 100, 1999,15, true)
+ruby = Book.new("Programming Ruby", 100, 2004, 36, true)
+good_ol_ruby = Book.new("Good Ol Ruby", 50, 2003, 42, false)
+brand_new_ruby = Book.new("Brand New Ruby", 50, 1995, 3, false)
+
 stock = Stock.new
-stock.add_book_to_stock(Book.new("Rails - Best Practices", 40, 2020, 226, true))
-stock.add_book_to_stock(Book.new("Ruby - mkdir dev happy", 45, 2000, 453, false))
-stock.add_book_to_stock(Book.new("Ruby On Rails - the web runs in trails", 50, 2010, 14, false))
-stock.add_book_to_stock(Book.new("Ruby - The newest kid in the block", 25, 1995, 8, false))
-stock.add_book_to_stock(Book.new("TDD - Ruby", 30, 1996, 7, true))
-stock.add_book_to_stock( Book.new("Agile & Ruby - Ruby", 15, 2001, 16, false))
-stock.add_book_to_stock( Book.new("How BigTech is using Ruby?", 65, 2002, 47, true))
+stock <<  ds
+stock <<  sd
+stock <<  programmer << ruby
+stock << good_ol_ruby
+stock << brand_new_ruby
 
 
-
-#stock.export_csv
-#stock.inventory
-#stock.apply_discount
-#stock.newsletter_books_on_sale
+stock.print_invoice
+stock.books.delete ds
+puts stock.max_inventory_reached
+stock.print_invoice
+puts stock.max_inventory_reached
